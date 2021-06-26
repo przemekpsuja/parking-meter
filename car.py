@@ -1,5 +1,4 @@
 class Car:
-    __carPlate = ''
 
     def __init__(self, plate):
         self.__carPlate = plate

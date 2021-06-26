@@ -41,6 +41,7 @@ class Machine:
             else:
                 sys.exit()
 
+#This function couting how many coins does we put into park-machine and return how long car can parking
     def how_long(self):
         time = 0
         stop = False
@@ -74,6 +75,7 @@ class Machine:
                 stop = True
         return time
 
+# Function creating free 2 hours ticket for a specific car
     def print_free_ticket(self, plate):
         car = Car(plate)
         ticket = Ticket(car.get_carPlate(), 120)
@@ -81,6 +83,7 @@ class Machine:
         self.tickets[car.get_carPlate()] = ticket.get_expirydatetime()
         print(f'Take your free ticket! It expire: {ticket.get_expirydatetime().strftime("%x %X")}\n')
 
+# Function creating new ticket on specified parking time
     def buy_ticket(self, plate):
         car = Car(plate)
         time = self.how_long()
@@ -88,12 +91,13 @@ class Machine:
         self.tickets[car.get_carPlate()] = ticket.get_expirydatetime()
         print(f'Your ticket expire in: {ticket.get_expirydatetime().strftime("%x %X")}\n')
 
+# Function which removing from dictionary expired tickets durig every loggin
     def remove_expire_ticets(self):
         for k in list(self.tickets.keys()):
             if self.tickets[k] < datetime.datetime.now():
-                # self.tickets.
                 del self.tickets[k]
 
+# Simple logging function which checking PIN number correctness and servicing logged user
     def login(self, pin):
         if pin == 1234:
             self.remove_expire_ticets()
@@ -106,6 +110,7 @@ class Machine:
         else:
             print('PIN number is incorrect!\n')
 
+# This one searching thru the ticket dict for specified plate
     def check_plate(self):
         x = input('What plate would you check? \n').upper()
         if x in self.tickets:
